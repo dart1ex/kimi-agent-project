@@ -8,6 +8,26 @@ import asyncio
 import os
 import aiohttp
 import json
+import os
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+# Міні-сервер для того, щоб Render не вбивав процес
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b"Bot is running!")
+
+def run_health_server():
+    port = int(os.environ.get("PORT", 8000))
+    server = HTTPServer(('0.0.0.0', port), HealthCheckHandler)
+    print(f"Health check server started on port {port}")
+    server.serve_forever()
+
+# Запускаємо сервер у фоновому потоці
+threading.Thread(target=run_health_server, daemon=True).start()
 from datetime import datetime
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart, Command
@@ -18,7 +38,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 # Конфигурация
 API_TOKEN = os.getenv('BOT_TOKEN', '8721487651:AAEK8ppSlOYmhoP5W1JaSyS9UsagBBiEc7Q')
-ADMIN_ID = os.getenv('ADMIN_ID', '123456789')
+ADMIN_ID = os.getenv('ADMIN_ID', '7129175217')
 API_URL = os.getenv('API_URL', 'http://localhost:3001/api')
 
 # Инициализация бота
