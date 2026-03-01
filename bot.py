@@ -207,7 +207,7 @@ async def help_handler(message: types.Message):
 • Можно отправить заявку без фото
 
 <b>🔗 Полезные ссылки:</b>
-🌐 Сайт: https://kontrol-city.ru
+🌐 Сайт: https://kimi-web.onrender.com/index.html
 📢 Канал: @kontrol_city
 
 <b>❓ Вопросы?</b>
