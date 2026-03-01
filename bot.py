@@ -571,19 +571,25 @@ async def cancel_report(callback: CallbackQuery, state: FSMContext):
 # ==================== MAIN ====================
 
 async def main():
-    # 1. Спершу налаштовуємо і запускаємо планувальник
-    scheduler = AsyncIOScheduler()
-    # Запуск функції auto_news_update кожні 60 хвилин
-    scheduler.add_job(auto_news_update, "interval", minutes=60)
-    scheduler.start()
-    print("✅ Планувальник новин запущено")
-
-    # 2. Потім запускаємо самого бота (цей рядок має бути ОСТАННІМ у main)
-    # Він "захоплює" керування і не пускає код далі
+    """Запуск бота"""
+    print("=" * 50)
+    print("🤖 КОНТРОЛЬ - Telegram Bot")
+    print("=" * 50)
+    
+    # Load streets
+    await load_streets()
+    print(f"📍 Загружено {len(STREETS)} улиц")
+    
+    print("✅ Бот запущен и готов к работе!")
+    print("=" * 50)
+    
+    # Start polling
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
-    except (KeyboardInterrupt, SystemExit):
-        print("Бот зупинений")
+    except KeyboardInterrupt:
+        print("\n👋 Бот остановлен")
+    except Exception as e:
+        print(f"\n❌ Ошибка: {e}")
