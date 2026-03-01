@@ -1249,7 +1249,7 @@
         // API Configuration
         const API_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:3001/api' 
-            : '/api';
+            : 'https://kimi-api.onrender.com/api';
         
         // Check for user from main site
         let currentUser = JSON.parse(localStorage.getItem('kontrol_current_user') || 'null');

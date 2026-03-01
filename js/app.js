@@ -15,7 +15,7 @@ const app = (function() {
     // API URL
     const API_URL = window.location.hostname === 'localhost' 
         ? 'http://localhost:3001/api' 
-        : '/api';
+        : 'https://kimi-api.onrender.com/api';
 
     // ==================== INIT ====================
 
